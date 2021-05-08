@@ -6,6 +6,28 @@
     android:layout_height="match_parent"
     tools:context=".ui.activities.MainActivity">
 
+    <SearchView
+        android:id="@+id/searchMovieView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:defaultQueryHint="Search by title or genre"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:queryHint="Search by title or genre" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/gridRV"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/searchMovieView"
+        app:spanCount="3"
+        tools:listitem="@layout/row_item" />
+
     <ProgressBar
         android:id="@+id/progressBar"
         style="?android:attr/progressBarStyle"
@@ -16,17 +38,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/gridRV"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-        app:spanCount="3"
-        tools:listitem="@layout/row_item" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

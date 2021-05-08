@@ -20,14 +20,24 @@ class MainViewModel @Inject constructor(private val useCases: MainUseCases) : Vi
     private val _model: MutableStateFlow<UiModel> = MutableStateFlow(UiModel.RequestMovies(null))
     val model: StateFlow<UiModel> get() = _model
 
-    private lateinit var listMovieDetail: List<DataItem>
+    private lateinit var _listMovieDetail: List<DataItem>
+    val listMovieDetail get() = _listMovieDetail
+    
+    private lateinit var listMovieDetailFiltered: List<DataItem>
 
     suspend fun getMovies() {
         val movies = useCases.getMovies()
         viewModelScope.launch {
-            listMovieDetail = movies.data
+            _listMovieDetail = movies.data
             _model.value = UiModel.RequestMovies(movies)
         }
+    }
+
+    fun getFilteredItems(text: String): List<DataItem> {
+        listMovieDetailFiltered = ArrayList(listMovieDetail)
+        return listMovieDetailFiltered
+            .filter { it.title.contains(text, true) || it.genre.contains(text, true) }
+            .sortedBy { it.title }
     }
 
     fun getMovie(id: Int) {

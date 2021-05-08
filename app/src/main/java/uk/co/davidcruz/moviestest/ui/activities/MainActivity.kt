@@ -4,6 +4,7 @@ import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
 import android.view.View
+import android.widget.SearchView
 import androidx.core.os.bundleOf
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
@@ -35,6 +36,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         super.onCreate(savedInstanceState)
         appComponent.inject(this)
         setupRecyclerView()
+        searchViewQueryListener()
     }
 
     override fun createViewBinding(): ActivityMainBinding =
@@ -85,6 +87,25 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
     private fun showProgressBar(show: Boolean) {
         binding.progressBar.visibility = if (show) View.VISIBLE else View.GONE
+    }
+
+    private fun onSearchEventListener(text: String?) {
+        showProgressBar(false)
+        adapter.items = text?.let { viewModel.getFilteredItems(it) } ?: viewModel.listMovieDetail
+    }
+
+    private fun searchViewQueryListener() {
+        binding.searchMovieView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                onSearchEventListener(query)
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                onSearchEventListener(newText)
+                return true
+            }
+        })
     }
 
 }
