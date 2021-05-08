@@ -1,6 +1,7 @@
 plugins {
     id 'java-library'
     id 'kotlin'
+    id 'kotlin-kapt'
 }
 
 java {
@@ -12,4 +13,5 @@ dependencies {
     implementation project(':service')
     implementation Dependencies.Kotlin
     implementation Dependencies.Dagger
+    kapt KaptDependencies.Dagger
 }

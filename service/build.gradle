@@ -1,6 +1,7 @@
 plugins {
     id 'java-library'
     id 'kotlin'
+    id 'kotlin-kapt'
 }
 
 java {
@@ -13,4 +14,5 @@ dependencies {
     implementation Dependencies.Retrofit2
     implementation Dependencies.Retrofit2Gson
     implementation Dependencies.Dagger
+    kapt KaptDependencies.Dagger
 }

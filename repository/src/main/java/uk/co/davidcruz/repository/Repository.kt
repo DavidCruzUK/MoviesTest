@@ -1,4 +1,4 @@
-package uk.co.davidcruz
+package uk.co.davidcruz.repository
 
 import uk.co.davidcruz.service.ServiceApi
 import javax.inject.Inject

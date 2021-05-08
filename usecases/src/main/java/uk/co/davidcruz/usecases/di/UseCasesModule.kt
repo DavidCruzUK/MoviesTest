@@ -1,8 +1,8 @@
-package uk.co.davidcruz.moviestest.di.modules
+package uk.co.davidcruz.usecases.di
 
 import dagger.Module
 import dagger.Provides
-import uk.co.davidcruz.Repository
+import uk.co.davidcruz.repository.Repository
 import uk.co.davidcruz.usecases.MainUseCases
 
 @Module
