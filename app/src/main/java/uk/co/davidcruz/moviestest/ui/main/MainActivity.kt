@@ -26,10 +26,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     }
 
     private val adapter = MoviesAdapter { id ->
-//        val intent = Intent(this, DetailActivity::class.java).apply {
-//            putExtras(bundleOf(DetailActivity.USER_ID_KEY to id))
-//        }
-//        startActivity(intent)
+        // TODO: go to Detail View Activity
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,6 +39,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         ActivityMainBinding.inflate(layoutInflater)
 
     override fun initLifeCycleScope() {
+        showProgressBar(true)
         lifecycleScope.launchWhenStarted {
             CoroutineScope(Dispatchers.IO).launch(errorHandler) {
                 viewModel.getMovies()
@@ -52,11 +50,12 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
-        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            binding.gridRV.layoutManager = GridLayoutManager(this, 5)
-        } else {
-            binding.gridRV.layoutManager = GridLayoutManager(this, 3)
-        }
+        changeSpanCountOnOrientationChange(newConfig)
+    }
+
+    private fun changeSpanCountOnOrientationChange(newConfig: Configuration) {
+        val spanCount = if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) 5 else 3
+        binding.gridRV.layoutManager = GridLayoutManager(this, spanCount)
     }
 
     private suspend fun onCollect(uiModel: MainViewModel.UiModel) {
