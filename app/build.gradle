@@ -1,0 +1,64 @@
+import Application
+
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+}
+
+android {
+    compileSdkVersion Application.SdkVersion
+    buildToolsVersion Application.BuildToolsVersion
+
+    defaultConfig {
+        applicationId Application.ApplicationId
+        minSdkVersion Application.MinSdkVersion
+        targetSdkVersion Application.SdkVersion
+        versionCode Application.VersionCode
+        versionName Application.VersionName
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8
+    }
+    buildFeatures {
+        viewBinding true
+    }
+}
+
+dependencies {
+    implementation project(':usecases')
+    implementation project(':repository')
+    implementation project(':service')
+
+    implementation Dependencies.Kotlin
+    implementation Dependencies.CoreKTX
+    implementation Dependencies.ActivityKTX
+    implementation Dependencies.AppCompat
+    implementation Dependencies.Material
+    implementation Dependencies.ConstraintLayout
+    implementation Dependencies.Dagger
+    implementation Dependencies.Retrofit2
+    implementation Dependencies.Retrofit2Gson
+    implementation Dependencies.Coroutines
+    implementation Dependencies.CoroutinesAndroid
+
+    kapt KaptDependencies.Dagger
+
+    testImplementation TestDependencies.JUnit
+
+    androidTestImplementation AndroidTestDependencies.JUnit
+    androidTestImplementation AndroidTestDependencies.EspressoCore
+}

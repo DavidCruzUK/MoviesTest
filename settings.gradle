@@ -1,0 +1,2 @@
+rootProject.name = "Movies Test"
+include ':app', ':usecases', ':repository', ':service'

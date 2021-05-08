@@ -1,0 +1,16 @@
+plugins {
+    id 'java-library'
+    id 'kotlin'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
+
+dependencies {
+    implementation Dependencies.Kotlin
+    implementation Dependencies.Retrofit2
+    implementation Dependencies.Retrofit2Gson
+    implementation Dependencies.Dagger
+}
