@@ -10,19 +10,19 @@ import kotlin.properties.Delegates
 class MoviesAdapter(
     items: List<DataItem> = emptyList(),
     private val listener: (id: Int) -> Unit
-) : RecyclerView.Adapter<ItemViewHolder>() {
+) : RecyclerView.Adapter<MoviesViewHolder>() {
 
     var items: List<DataItem> by Delegates.observable(items) { _, _, _ ->
         notifyDataSetChanged()
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MoviesViewHolder {
         val binding: RowItemBinding =
             RowItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ItemViewHolder(binding)
+        return MoviesViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: MoviesViewHolder, position: Int) {
         holder.bind(items[position], listener)
     }
 

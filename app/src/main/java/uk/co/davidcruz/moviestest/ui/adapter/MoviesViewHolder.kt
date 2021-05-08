@@ -5,7 +5,7 @@ import uk.co.davidcruz.moviestest.databinding.RowItemBinding
 import uk.co.davidcruz.moviestest.extensions.loadUrl
 import uk.co.davidcruz.service.datamodel.DataItem
 
-class ItemViewHolder(private val binding: RowItemBinding) :
+class MoviesViewHolder(private val binding: RowItemBinding) :
     RecyclerView.ViewHolder(binding.root) {
 
     fun bind(
@@ -14,6 +14,7 @@ class ItemViewHolder(private val binding: RowItemBinding) :
     ) {
         with(binding) {
             titleTV.text = movie.title
+            genreTV.text = movie.genre
             posterIV.loadUrl(movie.poster)
             root.setOnClickListener { listener(movie.id) }
         }
