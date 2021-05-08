@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MoviesTest">
         <activity
-            android:name=".ui.main.MainActivity"
+            android:name=".ui.activities.MainActivity"
             android:configChanges="orientation|screenSize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,6 +22,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".ui.activities.DetailActivity"
+            android:configChanges="orientation" />
+
     </application>
 
 </manifest>

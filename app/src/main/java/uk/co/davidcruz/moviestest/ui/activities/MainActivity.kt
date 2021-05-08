@@ -1,26 +1,22 @@
-package uk.co.davidcruz.moviestest.ui.main
+package uk.co.davidcruz.moviestest.ui.activities
 
+import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
 import android.view.View
+import androidx.core.os.bundleOf
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.collect
 import uk.co.davidcruz.moviestest.base.BaseActivity
 import uk.co.davidcruz.moviestest.databinding.ActivityMainBinding
-import uk.co.davidcruz.moviestest.extensions.getViewModel
 import uk.co.davidcruz.moviestest.ui.adapter.MoviesAdapter
+import uk.co.davidcruz.moviestest.ui.viewmodels.MainViewModel
 import uk.co.davidcruz.service.datamodel.MovieResponse
-import javax.inject.Inject
 
 
 class MainActivity : BaseActivity<ActivityMainBinding>() {
-
-    @Inject
-    lateinit var mainViewModel: MainViewModel
-
-    private val viewModel by lazy { getViewModel { mainViewModel } }
 
     private val errorHandler = CoroutineExceptionHandler { _, _ ->
         CoroutineScope(Dispatchers.Main).launch {
@@ -29,7 +25,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     }
 
     private val adapter = MoviesAdapter { id ->
-        // TODO: go to Detail View Activity
+        val intent = Intent(this, DetailActivity::class.java).apply {
+            putExtras(bundleOf(DetailActivity.MOVIE_ID_KEY to id))
+        }
+        startActivity(intent)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -73,6 +72,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     private suspend fun onCollect(uiModel: MainViewModel.UiModel) {
         when (uiModel) {
             is MainViewModel.UiModel.RequestMovies -> onSuccessResponse(uiModel.movieResponse)
+            else -> Unit
         }
     }
 

@@ -5,8 +5,16 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.viewbinding.ViewBinding
 import uk.co.davidcruz.moviestest.App
 import uk.co.davidcruz.moviestest.di.ApplicationComponent
+import uk.co.davidcruz.moviestest.extensions.getViewModel
+import uk.co.davidcruz.moviestest.ui.viewmodels.MainViewModel
+import javax.inject.Inject
 
 abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity() {
+
+    @Inject
+    lateinit var mainViewModel: MainViewModel
+
+    protected val viewModel by lazy { getViewModel { mainViewModel } }
 
     protected lateinit var binding: VB
 
