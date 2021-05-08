@@ -13,4 +13,6 @@ object Versions {
 
     const val Dagger = "2.35.1"
     const val Coroutines = "1.4.3"
+
+    const val Glide = "4.12.0"
 }

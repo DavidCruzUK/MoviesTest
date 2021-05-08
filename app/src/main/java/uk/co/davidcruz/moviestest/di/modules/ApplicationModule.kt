@@ -35,7 +35,7 @@ class ApplicationModule {
 
     private fun interceptors(context: Context) = Interceptor { chain ->
         val originalRequest = chain.request()
-        val tenMinutes: Int = 60*10 // 60 seconds * 10
+        val tenMinutes: Int = 60 * 10 // 60 seconds * 10
         val cacheHeaderValue =
             if (isInternetAvailable(context))
                 "public, max-age=$tenMinutes, must-revalidate"

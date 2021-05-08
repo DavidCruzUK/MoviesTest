@@ -54,8 +54,10 @@ dependencies {
     implementation Dependencies.Retrofit2Gson
     implementation Dependencies.Coroutines
     implementation Dependencies.CoroutinesAndroid
+    implementation Dependencies.Glide
 
     kapt KaptDependencies.Dagger
+    kapt KaptDependencies.Glide
 
     testImplementation TestDependencies.JUnit
 

@@ -15,4 +15,6 @@ object Dependencies {
 
     const val Coroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.Coroutines}"
     const val CoroutinesAndroid = "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.Coroutines}"
+
+    const val Glide = "com.github.bumptech.glide:glide:${Versions.Glide}"
 }

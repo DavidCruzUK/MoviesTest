@@ -2,6 +2,7 @@ package uk.co.davidcruz.moviestest.ui.adapter
 
 import androidx.recyclerview.widget.RecyclerView
 import uk.co.davidcruz.moviestest.databinding.RowItemBinding
+import uk.co.davidcruz.moviestest.extensions.loadUrl
 import uk.co.davidcruz.service.datamodel.DataItem
 
 class ItemViewHolder(private val binding: RowItemBinding) :
@@ -13,6 +14,7 @@ class ItemViewHolder(private val binding: RowItemBinding) :
     ) {
         with(binding) {
             titleTV.text = movie.title
+            posterIV.loadUrl(movie.poster)
             root.setOnClickListener { listener(movie.id) }
         }
     }

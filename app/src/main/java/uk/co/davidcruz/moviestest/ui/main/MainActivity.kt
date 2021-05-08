@@ -9,6 +9,7 @@ import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.collect
 import uk.co.davidcruz.moviestest.base.BaseActivity
 import uk.co.davidcruz.moviestest.databinding.ActivityMainBinding
+import uk.co.davidcruz.moviestest.extensions.getViewModel
 import uk.co.davidcruz.moviestest.ui.adapter.MoviesAdapter
 import uk.co.davidcruz.service.datamodel.MovieResponse
 import javax.inject.Inject
@@ -17,7 +18,9 @@ import javax.inject.Inject
 class MainActivity : BaseActivity<ActivityMainBinding>() {
 
     @Inject
-    lateinit var viewModel: MainViewModel
+    lateinit var mainViewModel: MainViewModel
+
+    private val viewModel by lazy { getViewModel { mainViewModel } }
 
     private val errorHandler = CoroutineExceptionHandler { _, _ ->
         CoroutineScope(Dispatchers.Main).launch {
@@ -54,8 +57,17 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     }
 
     private fun changeSpanCountOnOrientationChange(newConfig: Configuration) {
-        val spanCount = if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) 5 else 3
-        binding.gridRV.layoutManager = GridLayoutManager(this, spanCount)
+        setCorrectSpanCount(newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE)
+    }
+
+    private fun setCorrectSpanCount(isLandscape: Boolean) {
+        binding.gridRV.layoutManager = GridLayoutManager(this, if (isLandscape) 5 else 3)
+    }
+
+    private fun setupRecyclerView() {
+        setCorrectSpanCount(resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE)
+        binding.gridRV.setHasFixedSize(true)
+        binding.gridRV.adapter = adapter
     }
 
     private suspend fun onCollect(uiModel: MainViewModel.UiModel) {
@@ -69,11 +81,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             showProgressBar(false)
             movies?.data?.let { adapter.items = it }
         }
-    }
-
-    private fun setupRecyclerView() {
-        binding.gridRV.setHasFixedSize(true)
-        binding.gridRV.adapter = adapter
     }
 
     private fun showProgressBar(show: Boolean) {

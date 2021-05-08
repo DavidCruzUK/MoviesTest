@@ -1,6 +1,7 @@
 package uk.co.davidcruz.moviestest.ui.main
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -24,4 +25,5 @@ class MainViewModel @Inject constructor(private val useCases: MainUseCases) : Vi
             _model.value = UiModel.RequestMovies(movies)
         }
     }
+
 }
