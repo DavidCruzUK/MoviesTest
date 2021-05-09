@@ -2,4 +2,9 @@
 <resources>
     <dimen name="progress_bar_size">50dp</dimen>
     <dimen name="padding_genre_text_view">10dp</dimen>
+    <dimen name="detail_poster_landascape_padding">15dp</dimen>
+    <dimen name="row_item_container_padding">5dp</dimen>
+    <dimen name="row_item_title_margin">10dp</dimen>
+    <dimen name="row_item_poster_width">200dp</dimen>
+    <dimen name="row_item_poster_height">200dp</dimen>
 </resources>

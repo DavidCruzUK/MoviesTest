@@ -14,13 +14,14 @@ class MainViewModel @Inject constructor(private val useCases: MainUseCases) : Vi
 
     sealed class UiModel {
         data class RequestMovies(val movieResponse: MovieResponse?) : UiModel()
+        data class FilterList(val newFilteredList: List<DataItem>) : UiModel()
         data class GetMovieDetail(val movieDetail: DataItem) : UiModel()
     }
 
     private val _model: MutableStateFlow<UiModel> = MutableStateFlow(UiModel.RequestMovies(null))
     val model: StateFlow<UiModel> get() = _model
 
-    private lateinit var _listMovieDetail: List<DataItem>
+    private var _listMovieDetail: List<DataItem>? = null
     val listMovieDetail get() = _listMovieDetail
     
     private lateinit var listMovieDetailFiltered: List<DataItem>
@@ -33,15 +34,20 @@ class MainViewModel @Inject constructor(private val useCases: MainUseCases) : Vi
         }
     }
 
-    fun getFilteredItems(text: String): List<DataItem> {
+    suspend fun onResumeRequest() {
+        val movies = useCases.getMovies()
+        UiModel.RequestMovies(movies)
+    }
+
+    fun getFilteredItems(text: String) {
+        if (listMovieDetail.isNullOrEmpty()) return
         listMovieDetailFiltered = ArrayList(listMovieDetail)
-        return listMovieDetailFiltered
             .filter { it.title.contains(text, true) || it.genre.contains(text, true) }
-            .sortedBy { it.title }
+        _model.value = UiModel.FilterList(listMovieDetailFiltered)
     }
 
     fun getMovie(id: Int) {
-        listMovieDetail.find { it.id == id }?.let { movie ->
+        listMovieDetail?.find { it.id == id }?.let { movie ->
             _model.value = UiModel.GetMovieDetail(movie)
         }
     }

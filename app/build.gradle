@@ -60,7 +60,10 @@ dependencies {
     kapt KaptDependencies.Glide
 
     testImplementation TestDependencies.JUnit
+    testImplementation TestDependencies.Mockk
+    testImplementation TestDependencies.Coroutines
 
     androidTestImplementation AndroidTestDependencies.JUnit
     androidTestImplementation AndroidTestDependencies.EspressoCore
+    androidTestImplementation AndroidTestDependencies.Mockk
 }

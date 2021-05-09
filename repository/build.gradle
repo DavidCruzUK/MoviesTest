@@ -12,6 +12,10 @@ java {
 dependencies {
     implementation project(':service')
     implementation Dependencies.Kotlin
+    implementation Dependencies.Coroutines
     implementation Dependencies.Dagger
     kapt KaptDependencies.Dagger
+
+    testImplementation TestDependencies.JUnit
+    testImplementation TestDependencies.Mockk
 }

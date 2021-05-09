@@ -28,6 +28,19 @@
         app:spanCount="3"
         tools:listitem="@layout/row_item" />
 
+    <TextView
+        android:id="@+id/errorMessage"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        android:gravity="center"
+        tools:text="ErrorMessage will be here"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <ProgressBar
         android:id="@+id/progressBar"
         style="?android:attr/progressBarStyle"

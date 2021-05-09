@@ -5,7 +5,7 @@ import javax.inject.Inject
 
 class Repository @Inject constructor(private val serviceApi: ServiceApi) {
 
-    // TODO: handle Error
+    // I do Assume here the cache Room DB is not needed as Cache needs to expire in 10 minutes.
     suspend fun getMovies() = serviceApi.getMovies()
 
 }

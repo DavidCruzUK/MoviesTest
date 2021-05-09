@@ -20,6 +20,7 @@ class ServiceModule {
             .build()
 
     @Provides
+    @Singleton
     fun provideServiceApiResponse(retrofit: Retrofit): ServiceApi =
         retrofit.create(ServiceApi::class.java)
 

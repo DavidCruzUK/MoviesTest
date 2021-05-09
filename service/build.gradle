@@ -11,8 +11,11 @@ java {
 
 dependencies {
     implementation Dependencies.Kotlin
+    implementation Dependencies.Coroutines
     implementation Dependencies.Retrofit2
     implementation Dependencies.Retrofit2Gson
     implementation Dependencies.Dagger
     kapt KaptDependencies.Dagger
+
+    testImplementation TestDependencies.JUnit
 }
