@@ -1,4 +1,4 @@
-package uk.co.davidcruz.moviestest.ui.activities
+package uk.co.davidcruz.moviestest.ui.activities.utils
 
 import uk.co.davidcruz.service.datamodel.DataItem
 import uk.co.davidcruz.service.datamodel.MovieResponse
