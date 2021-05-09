@@ -10,7 +10,7 @@ import androidx.test.ext.junit.rules.ActivityScenarioRule
 import org.junit.Rule
 import org.junit.Test
 import uk.co.davidcruz.moviestest.R
-import uk.co.davidcruz.service.datamodel.DataItem
+import uk.co.davidcruz.moviestest.ui.activities.utils.FakeData
 
 class DetailActivityTest {
 
