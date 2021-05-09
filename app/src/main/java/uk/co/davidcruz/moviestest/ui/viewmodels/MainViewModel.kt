@@ -34,11 +34,6 @@ class MainViewModel @Inject constructor(private val useCases: MainUseCases) : Vi
         }
     }
 
-    suspend fun onResumeRequest() {
-        val movies = useCases.getMovies()
-        UiModel.RequestMovies(movies)
-    }
-
     fun getFilteredItems(text: String) {
         if (listMovieDetail.isNullOrEmpty()) return
         listMovieDetailFiltered = ArrayList(listMovieDetail)
