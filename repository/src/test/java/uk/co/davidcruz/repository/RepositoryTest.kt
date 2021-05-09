@@ -1,12 +1,10 @@
 package uk.co.davidcruz.repository
 
-import io.mockk.MockKAnnotations
 import io.mockk.MockKAnnotations.init
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.impl.annotations.MockK
 import kotlinx.coroutines.runBlocking
-import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
 import uk.co.davidcruz.repository.utils.FakeData

@@ -1,5 +1,6 @@
 package uk.co.davidcruz.moviestest.ui.viewmodels
 
+import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -21,7 +22,8 @@ class MainViewModel @Inject constructor(private val useCases: MainUseCases) : Vi
     private val _model: MutableStateFlow<UiModel> = MutableStateFlow(UiModel.RequestMovies(null))
     val model: StateFlow<UiModel> get() = _model
 
-    private var _listMovieDetail: List<DataItem>? = null
+    @VisibleForTesting
+    var _listMovieDetail: List<DataItem>? = null
     val listMovieDetail get() = _listMovieDetail
     
     private lateinit var listMovieDetailFiltered: List<DataItem>

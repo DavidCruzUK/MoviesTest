@@ -1,6 +1,7 @@
 package uk.co.davidcruz.moviestest.base
 
 import android.os.Bundle
+import androidx.annotation.VisibleForTesting
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewbinding.ViewBinding
 import uk.co.davidcruz.moviestest.App
@@ -14,7 +15,8 @@ abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity() {
     @Inject
     lateinit var mainViewModel: MainViewModel
 
-    protected val viewModel by lazy { getViewModel { mainViewModel } }
+    @VisibleForTesting(otherwise = VisibleForTesting.PROTECTED)
+    val viewModel by lazy { getViewModel { mainViewModel } }
 
     protected lateinit var binding: VB
 
