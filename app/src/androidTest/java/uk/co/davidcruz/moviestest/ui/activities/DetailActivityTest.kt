@@ -23,16 +23,6 @@ class DetailActivityTest {
     var activityRule: ActivityScenarioRule<DetailActivity> =
         ActivityScenarioRule<DetailActivity>(getIntent())
 
-    private val mockListDataItem = listOf(
-        DataItem(
-            "2017",
-            "History",
-            912312,
-            "Dunkirk",
-            "https://image.tmdb.org/t/p/w370_and_h556_bestv2/ebSnODDg9lbsMIaWg2uAbjn7TO5.jpg"
-        )
-    )
-
     @Test
     fun on_DetailActivity_launched_movie_is_find_by_id_and_displayed() {
         // GIVEN
@@ -42,7 +32,7 @@ class DetailActivityTest {
 
         // WHEN
         activityRule.scenario.onActivity {
-            it.viewModel._listMovieDetail = mockListDataItem
+            it.viewModel._listMovieDetail = FakeData.movieFakeResponse().data
             it.viewModel.getMovie(movieId)
         }
 

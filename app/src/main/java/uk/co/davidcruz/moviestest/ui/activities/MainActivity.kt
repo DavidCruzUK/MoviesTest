@@ -5,6 +5,7 @@ import android.content.res.Configuration
 import android.os.Bundle
 import android.view.View
 import android.widget.SearchView
+import androidx.annotation.VisibleForTesting
 import androidx.core.os.bundleOf
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
@@ -28,7 +29,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         }
     }
 
-    private val adapter = MoviesAdapter { id ->
+    @VisibleForTesting
+    val adapter = MoviesAdapter { id ->
         val intent = Intent(this, DetailActivity::class.java).apply {
             putExtras(bundleOf(DetailActivity.MOVIE_ID_KEY to id))
         }
@@ -100,7 +102,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         binding.progressBar.visibility = if (show) View.VISIBLE else View.GONE
     }
 
-    private fun showErrorMessageIfErrorOcurrs(showError: Boolean = true, errorMessage: String?) {
+    @VisibleForTesting
+    fun showErrorMessageIfErrorOcurrs(showError: Boolean = true, errorMessage: String?) {
         with(binding.errorMessage) {
             visibility = if (showError) View.VISIBLE else View.GONE
             text = if (showError) errorMessage else ""
