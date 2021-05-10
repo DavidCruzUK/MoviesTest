@@ -70,12 +70,9 @@ class MainViewModelTest {
             SUT.getMovies()
 
             // WHEN
-            SUT.getFilteredItems("second")
+            val filteredList = SUT.getFilteredItems("second")
 
             // THEN
-            val filteredList =
-                (SUT.model.value as MainViewModel.UiModel.FilterList).newFilteredList
-
             assertTrue(filteredList.size == 1)
             assertEquals("drama", filteredList[0].genre)
         }
@@ -88,12 +85,9 @@ class MainViewModelTest {
             SUT.getMovies()
 
             // WHEN
-            SUT.getFilteredItems("drama")
+            val filteredList = SUT.getFilteredItems("drama")
 
             // THEN
-            val filteredList =
-                (SUT.model.value as MainViewModel.UiModel.FilterList).newFilteredList
-
             assertTrue(filteredList.size == 1)
             assertEquals("Movie Second Title", filteredList[0].title)
         }
@@ -106,11 +100,9 @@ class MainViewModelTest {
             SUT.getMovies()
 
             // WHEN
-            SUT.getFilteredItems("rdrdrdrd")
+            val filteredList = SUT.getFilteredItems("rdrdrdrd")
 
             // THEN
-            val filteredList =
-                (SUT.model.value as MainViewModel.UiModel.FilterList).newFilteredList
             assertTrue(filteredList.isEmpty())
         }
 

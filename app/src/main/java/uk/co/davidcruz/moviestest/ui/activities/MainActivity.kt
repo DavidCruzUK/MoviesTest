@@ -19,12 +19,14 @@ import uk.co.davidcruz.moviestest.ui.viewmodels.MainViewModel
 import uk.co.davidcruz.service.datamodel.DataItem
 import uk.co.davidcruz.service.datamodel.MovieResponse
 
-
 class MainActivity : BaseActivity<ActivityMainBinding>() {
+
+    private var uiStateJob: Job? = null
 
     private val errorHandler = CoroutineExceptionHandler { _, _ ->
         CoroutineScope(Dispatchers.Main).launch {
             showProgressBar(false)
+            showRequestMoviesFA(true)
             showErrorMessageIfErrorOcurrs(errorMessage = getString(R.string.error_no_internet_or_cache))
         }
     }
@@ -40,25 +42,41 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         appComponent.inject(this)
+        setupClickListeners()
         setupRecyclerView()
         searchViewQueryListener()
+    }
+
+    private fun setupClickListeners() {
+        binding.requestMoviesFA.setOnClickListener {
+            requestMovies()
+        }
     }
 
     override fun createViewBinding(): ActivityMainBinding =
         ActivityMainBinding.inflate(layoutInflater)
 
     override fun initLifeCycleScope() {
-        lifecycleScope.launchWhenStarted {
-            CoroutineScope(Dispatchers.IO).launch(errorHandler) {
-                viewModel.getMovies()
-            }
+        uiStateJob = lifecycleScope.launchWhenStarted {
+            requestMovies()
             viewModel.model.collect { onCollect(it) }
         }
+    }
+
+    override fun onStop() {
+        uiStateJob?.cancel()
+        super.onStop()
     }
 
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
         changeSpanCountOnOrientationChange(newConfig)
+    }
+
+    private fun requestMovies() {
+        CoroutineScope(Dispatchers.IO).launch(errorHandler) {
+            viewModel.getMovies()
+        }
     }
 
     private fun changeSpanCountOnOrientationChange(newConfig: Configuration) {
@@ -78,7 +96,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     private suspend fun onCollect(uiModel: MainViewModel.UiModel) {
         when (uiModel) {
             is MainViewModel.UiModel.RequestMovies -> onSuccessResponse(uiModel.movieResponse)
-            is MainViewModel.UiModel.FilterList -> onNewFilteredListIsReceived(uiModel.newFilteredList)
             else -> Unit
         }
     }
@@ -93,6 +110,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
     private suspend fun onSuccessResponse(movies: MovieResponse?) {
         showProgressBar(false)
+        showRequestMoviesFA(false)
+        showErrorMessageIfErrorOcurrs(false)
         withContext(Dispatchers.Main) {
             movies?.data?.let { adapter.items = it }
         }
@@ -102,8 +121,12 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         binding.progressBar.visibility = if (show) View.VISIBLE else View.GONE
     }
 
+    private fun showRequestMoviesFA(show: Boolean) {
+        binding.requestMoviesFA.visibility = if (show) View.VISIBLE else View.GONE
+    }
+
     @VisibleForTesting
-    fun showErrorMessageIfErrorOcurrs(showError: Boolean = true, errorMessage: String?) {
+    fun showErrorMessageIfErrorOcurrs(showError: Boolean = true, errorMessage: String? = "") {
         with(binding.errorMessage) {
             visibility = if (showError) View.VISIBLE else View.GONE
             text = if (showError) errorMessage else ""
@@ -112,7 +135,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
     private fun onSearchEventListener(text: String?) {
         showProgressBar(false)
-        text?.let { viewModel.getFilteredItems(it) }
+        text?.let {
+            onNewFilteredListIsReceived(viewModel.getFilteredItems(it))
+        }
     }
 
     private fun searchViewQueryListener() {
