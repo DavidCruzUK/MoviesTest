@@ -123,4 +123,17 @@ class MainViewModelTest {
             assertEquals("Movie Second Title", movieDetail.title)
         }
 
+    @Test
+    fun `on _listMovieDetail data saved will be equals as listMovieDetail`() =
+        runBlocking {
+            // GIVEN
+            SUT._listMovieDetail = FakeData.movieFakeResponse().data
+
+            // WHEN
+            val expected = SUT.listMovieDetail
+
+            // THEN
+            assertEquals(SUT._listMovieDetail, expected)
+        }
+
 }
