@@ -10,4 +10,5 @@ class RepositoryModule {
 
     @Provides
     fun provideRepository(serviceApi: ServiceApi) = Repository(serviceApi)
+
 }

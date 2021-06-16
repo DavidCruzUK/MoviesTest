@@ -8,6 +8,7 @@ import okhttp3.Cache
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import uk.co.davidcruz.moviestest.utils.InternetUtils.isInternetAvailable
+import uk.co.davidcruz.repository.storage.RateSharePreferences
 import java.io.File
 import javax.inject.Singleton
 

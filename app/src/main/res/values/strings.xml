@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Movies Test</string>
+    <string name="preference_file_key">save_pref</string>
 </resources>
